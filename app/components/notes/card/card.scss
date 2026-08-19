@@ -1,0 +1,57 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.notes-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 28px;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+
+  transition: border .2s ease;
+
+  &:hover {
+    border: 1px solid $color-accent;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__title {
+    color: $color-ink;
+
+    @include font-card-title;
+  }
+
+  &__actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 6px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  &__item {
+    :deep(.ui-checkbox__label) {
+      font-size: 14px;
+      color: $color-ink-muted;
+    }
+  }
+
+  &__more {
+    padding-left: 25px;
+    font-family: $font-mono;
+    font-size: 12px;
+    color: $color-ink-soft;
+  }
+}

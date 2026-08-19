@@ -1,0 +1,77 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.ui-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  &--disabled {
+    cursor: default;
+  }
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  &__box {
+    position: relative;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid $color-disabled-text-soft;
+    border-radius: $radius-xs;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  &__label {
+    color: $color-ink;
+
+    @include font-body;
+  }
+
+  &__input:checked ~ &__box {
+    background: $color-accent;
+    border-color: $color-accent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 5px;
+      width: 5px;
+      height: 9px;
+      border: solid $color-surface;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  &__input:checked ~ &__label {
+    color: $color-ink-soft;
+    text-decoration: line-through;
+  }
+
+  &__input:focus-visible ~ &__box {
+    border-color: $color-accent;
+    box-shadow: $shadow-focus-accent-softer;
+  }
+
+  &__input:disabled ~ &__box {
+    background: $color-accent-disabled-bg;
+    border-color: $color-accent-disabled-bg;
+  }
+
+  &__input:disabled ~ &__label {
+    color: $color-ink-soft;
+  }
+}

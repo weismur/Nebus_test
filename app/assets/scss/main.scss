@@ -45,3 +45,15 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  max-width: 1400px;
+  width: 100%;
+  padding: 60px 20px;
+}

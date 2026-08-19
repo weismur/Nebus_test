@@ -1,0 +1,132 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  @include font-small;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &--primary {
+    background: $color-accent;
+    border-color: $color-accent;
+    color: $color-surface;
+    font-weight: 600;
+
+    &:hover:not(:disabled) {
+      background: $color-accent-hover;
+      border-color: $color-accent-hover;
+    }
+
+    &:focus-visible {
+      box-shadow: $shadow-focus-accent;
+    }
+
+    &:disabled {
+      background: $color-disabled-bg;
+      border-color: $color-disabled-bg;
+      color: $color-disabled-text;
+    }
+  }
+
+  &--secondary {
+    background: $color-surface;
+    border-color: $color-border;
+    color: $color-ink-muted;
+
+    &:hover:not(:disabled) {
+      border-color: $color-accent;
+      color: $color-accent;
+    }
+
+    &:focus-visible {
+      box-shadow: $shadow-focus-accent-soft;
+    }
+
+    &:disabled {
+      background: $color-disabled-bg-soft;
+      border-color: $color-disabled-bg;
+      color: $color-disabled-text-soft;
+    }
+  }
+
+  &--danger {
+    background: transparent;
+    border-color: $color-danger-border-soft;
+    color: $color-danger;
+
+    &:hover:not(:disabled) {
+      background: $color-danger-soft-bg;
+    }
+
+    &:focus-visible {
+      border-color: $color-danger;
+      box-shadow: $shadow-focus-danger-soft;
+    }
+
+    &:disabled {
+      border-color: $color-danger-border-softer;
+      color: $color-danger-disabled-text;
+    }
+  }
+
+  &--danger-solid {
+    background: $color-danger;
+    border-color: $color-danger;
+    color: $color-surface;
+    font-weight: 600;
+
+    &:hover:not(:disabled) {
+      background: $color-danger-hover;
+      border-color: $color-danger-hover;
+    }
+
+    &:focus-visible {
+      box-shadow: $shadow-focus-danger;
+    }
+
+    &:disabled {
+      background: $color-danger-disabled-bg;
+      border-color: $color-danger-disabled-bg;
+      color: $color-danger-disabled-bg-text;
+    }
+  }
+
+  &--ghost {
+    padding: 11px 16px;
+    background: transparent;
+    border: 1.5px dashed $color-ghost-border;
+    color: $color-accent;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+
+  &--icon {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+
+  &--sm {
+    padding: 6px 11px;
+    border-radius: $radius-sm;
+    font-size: 13px;
+  }
+}

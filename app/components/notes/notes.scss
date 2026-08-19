@@ -1,0 +1,16 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.notes {
+  background: white;
+  border-radius: $radius-xl;
+  border: 1px solid $color-border;
+
+  padding: 16px;
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}

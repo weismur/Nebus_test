@@ -1,0 +1,24 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 0;
+
+  &__title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__title {
+    @include font-display;
+  }
+
+  &__count {
+    @include font-small;
+  }
+}
