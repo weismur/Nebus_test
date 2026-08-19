@@ -21,8 +21,7 @@
   }
 
   &:focus {
-    border: 1.5px solid $color-accent;
-    padding: 11.5px 13.5px;
+    border: 1px solid $color-accent;
     box-shadow: $shadow-focus-accent-input;
   }
 

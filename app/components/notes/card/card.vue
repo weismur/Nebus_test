@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { NoteTodoItem } from '~/types/note-todo-item.ts'
-import UIButton from '~/components/UI/button/button.vue'
-import UICheckbox from '~/components/UI/checkbox/checkbox.vue'
 
 const { title, items } = defineProps<{
   title: string

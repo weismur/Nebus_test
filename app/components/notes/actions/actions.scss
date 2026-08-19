@@ -1,0 +1,25 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.notes-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 24px 15px;
+  background: $color-history-bg;
+  border-bottom: 1px solid $color-note-border;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__history {
+    padding-left: 6px;
+    color: $color-ink-soft;
+
+    @include font-mono-label;
+  }
+}

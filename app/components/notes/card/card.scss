@@ -10,7 +10,7 @@
   border: 1px solid $color-border;
   border-radius: $radius-xl;
 
-  transition: border .2s ease;
+  transition: border 0.2s ease;
 
   &:hover {
     border: 1px solid $color-accent;

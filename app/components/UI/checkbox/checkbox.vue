@@ -16,7 +16,7 @@ const model = defineModel<boolean>({ default: false })
       :disabled="disabled"
     >
     <span class="ui-checkbox__box" />
-    <span v-if="$slots.default" class="ui-checkbox__label"><slot /></span>
+    <div v-if="$slots.default" class="ui-checkbox__label"><slot /></div>
   </label>
 </template>
 

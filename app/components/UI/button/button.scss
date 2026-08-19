@@ -18,6 +18,13 @@
 
   @include font-small;
 
+  :deep(svg) {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: currentcolor;
+  }
+
   &:disabled {
     cursor: default;
   }

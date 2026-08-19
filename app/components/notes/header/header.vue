@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Button from '~/components/UI/button/button.vue'
 </script>
 
 <template>
@@ -10,9 +9,9 @@ import Button from '~/components/UI/button/button.vue'
       </h1>
       <span class="notes-header__count">4</span>
     </div>
-    <Button type="primary">
+    <UIButton type="primary">
       Новая заметка
-    </Button>
+    </UIButton>
   </header>
 </template>
 
