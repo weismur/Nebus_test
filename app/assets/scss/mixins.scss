@@ -1,0 +1,58 @@
+@use 'variables' as *;
+
+@mixin font-display {
+  font-size: $font-size-display;
+  font-weight: $font-weight-display;
+  line-height: $line-height-display;
+}
+
+@mixin font-title {
+  font-size: $font-size-title;
+  font-weight: $font-weight-title;
+  line-height: $line-height-title;
+}
+
+@mixin font-heading {
+  font-size: $font-size-heading;
+  font-weight: $font-weight-heading;
+  line-height: $line-height-heading;
+}
+
+@mixin font-card-title {
+  font-size: $font-size-card-title;
+  font-weight: $font-weight-card-title;
+}
+
+@mixin font-body {
+  font-size: $font-size-body;
+  font-weight: $font-weight-body;
+  line-height: $line-height-body;
+}
+
+@mixin font-small {
+  font-size: $font-size-small;
+  font-weight: $font-weight-small;
+}
+
+@mixin font-mono-label {
+  font-family: $font-mono;
+  font-size: $font-size-mono-label;
+  line-height: $line-height-mono-label;
+  text-transform: uppercase;
+}
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: #{$breakpoint-mobile - 1px}) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: $breakpoint-tablet) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media (min-width: $breakpoint-desktop) {
+      @content;
+    }
+  }
+}

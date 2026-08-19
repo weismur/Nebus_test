@@ -1,0 +1,99 @@
+// Fonts
+$font-primary: 'Manrope', sans-serif;
+$font-mono: 'JetBrains Mono', monospace;
+
+// Colors — base
+$color-ink: #1c1b19;
+$color-ink-muted: #55504a;
+$color-ink-soft: #9a948a;
+$color-surface: #fdfcfa;
+$color-page: #edeae4;
+$color-border: #dcd7cf;
+
+// Colors — accent
+$color-accent: #2f5fa8;
+$color-accent-hover: #24497f;
+$color-accent-link-hover: #1e3f74;
+
+// Colors — danger
+$color-danger: #a8452f;
+$color-danger-hover: #8d3826;
+$color-danger-soft-bg: #fbf0ed;
+$color-danger-border-soft: #e6cec8;
+$color-danger-border-softer: #eeded9;
+$color-danger-disabled-text: #d5b3a9;
+$color-danger-disabled-bg: #cfa79b;
+$color-danger-disabled-bg-text: #f0dcd6;
+$color-input-error-bg: #fdf6f4;
+
+// Colors — disabled / muted surfaces
+$color-disabled-text: #b3ada3;
+$color-disabled-text-soft: #c7c1b7;
+$color-disabled-bg: #e7e3db;
+$color-disabled-bg-soft: #f4f1ec;
+
+// Colors — surfaces / containers
+$color-note-bg: #f8f5f0;
+$color-note-border: #e7e3db;
+$color-history-bg: #faf8f5;
+$color-row-hover-bg: #f6f3ee;
+$color-checkbox-readonly-border: #e0dbd3;
+$color-ghost-border: #cfd9e8;
+$color-warning-dot: #e0b04a;
+
+// Colors — overlay / dark surfaces
+$color-overlay: #2b2926;
+$color-overlay-text: #f4f1ec;
+
+// Shadows
+$shadow-card: 0 1px 2px rgba(28, 27, 25, 0.04);
+$shadow-modal: 0 10px 30px rgba(28, 27, 25, 0.1);
+$shadow-focus-accent: 0 0 0 3px rgba(47, 95, 168, 0.3);
+$shadow-focus-accent-soft: 0 0 0 3px rgba(47, 95, 168, 0.22);
+$shadow-focus-accent-softer: 0 0 0 3px rgba(47, 95, 168, 0.18);
+$shadow-focus-accent-input: 0 0 0 3px rgba(47, 95, 168, 0.12);
+$shadow-focus-danger: 0 0 0 3px rgba(168, 69, 47, 0.3);
+$shadow-focus-danger-soft: 0 0 0 3px rgba(168, 69, 47, 0.2);
+$overlay-opacity: 0.45;
+
+// Breakpoints
+$breakpoint-mobile: 640px;
+$breakpoint-tablet: 1023px;
+$breakpoint-desktop: 1024px;
+
+// Z-index
+$z-index-header: 100;
+$z-index-modal: 1000;
+
+// Border radius
+$radius-xs: 5px;
+$radius-sm: 6px;
+$radius-md: 7px;
+$radius-lg: 8px;
+$radius-xl: 10px;
+
+// Typography scale (size / weight / line-height / letter-spacing)
+$font-size-display: 36px;
+$font-weight-display: 700;
+$letter-spacing-display: -0.02em;
+
+$font-size-title: 24px;
+$font-weight-title: 700;
+$letter-spacing-title: -0.02em;
+
+$font-size-heading: 18px;
+$font-weight-heading: 700;
+$letter-spacing-heading: -0.01em;
+
+$font-size-card-title: 17px;
+$font-weight-card-title: 600;
+
+$font-size-body: 15px;
+$font-weight-body: 400;
+$line-height-body: 1.55;
+
+$font-size-small: 13.5px;
+$font-weight-small: 500;
+
+$font-size-mono-label: 11px;
+$letter-spacing-mono-label: 0.06em;
