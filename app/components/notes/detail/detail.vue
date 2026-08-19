@@ -15,12 +15,26 @@ const doneCount = computed(() => items.value.filter(item => item.done).length)
 function removeItem(index: number) {
   items.value.splice(index, 1)
 }
+
+const { $modal } = useNuxtApp()
+
+const deleteDescription = computed(() => {
+  // TODO()
+})
+
+function requestDelete() {
+  // TODO()
+}
+
+function confirmDelete() {
+  // TODO()
+}
 </script>
 
 <template>
   <div class="notes-detail">
     <div class="notes-detail__card">
-      <NotesActions :history-index="12" :history-total="50" can-undo />
+      <NotesActions :history-index="12" :history-total="50" can-undo @delete="requestDelete" />
 
       <div class="notes-detail__body">
         <div class="notes-detail__field">
@@ -55,6 +69,23 @@ function removeItem(index: number) {
         </div>
       </div>
     </div>
+
+    <ModalDefaultModal name="delete-note" @cancel="$modal.close()">
+      <template #title>
+        Удалить заметку?
+      </template>
+      <template #description>
+        {{ deleteDescription }}
+      </template>
+      <template #actions>
+        <UIButton type="secondary" @click="$modal.close()">
+          Отмена
+        </UIButton>
+        <UIButton type="danger-solid" @click="confirmDelete">
+          Удалить
+        </UIButton>
+      </template>
+    </ModalDefaultModal>
   </div>
 </template>
 

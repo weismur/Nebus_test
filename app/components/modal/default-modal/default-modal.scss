@@ -1,0 +1,25 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.default-modal {
+  &__title {
+    color: $color-ink;
+
+    @include font-heading;
+  }
+
+  &__description {
+    margin-top: 12px;
+    color: $color-ink-muted;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 22px;
+  }
+}

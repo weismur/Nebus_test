@@ -1,0 +1,87 @@
+@use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba($color-overlay, $overlay-opacity);
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: 26px 28px 28px;
+    background: $color-surface;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-modal;
+    outline: none;
+  }
+
+  &__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    padding: 4px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-radius: $radius-sm;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: $color-row-hover-bg;
+    }
+
+    &:focus-visible {
+      box-shadow: $shadow-focus-accent-softer;
+    }
+  }
+
+  &__close-icon {
+    width: 16px;
+    height: 16px;
+    fill: $color-ink-soft;
+  }
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.modal-enter-active .modal__wrapper,
+.modal-leave-active .modal__wrapper {
+  transition: transform 0.2s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal__wrapper,
+.modal-leave-to .modal__wrapper {
+  transform: scale(0.95) translateY(8px);
+}

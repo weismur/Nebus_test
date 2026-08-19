@@ -16,7 +16,7 @@ const MAX_VISIBLE_ITEMS = 3
 const remaining = computed(() => items.length - MAX_VISIBLE_ITEMS)
 const visibleItems = computed(() => items.slice(0, MAX_VISIBLE_ITEMS))
 
-const remainingText = computed(() => remaining.value === 1 ? 'пункт' : remaining.value < 5 ? 'пункта' : 'пунктов')
+const remainingText = computed(() => declination(remaining.value, 'пункт', 'пункта', 'пунктов'))
 </script>
 
 <template>

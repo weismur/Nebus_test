@@ -39,14 +39,51 @@ const notes: Note[] = [
     ],
   },
 ]
+
+const { $modal } = useNuxtApp()
+
+const deleteDescription = computed(() => {
+  // TODO()
+})
+
+function requestDelete(note: Note) {
+  // TODO()
+}
+
+function confirmDelete() {
+  // TODO()
+}
 </script>
 
 <template>
   <div class="notes">
     <NotesHeader />
     <div class="notes__list">
-      <NotesCard v-for="note in notes" :key="note.id" :title="note.title" :items="note.items" />
+      <NotesCard
+        v-for="note in notes"
+        :key="note.id"
+        :title="note.title"
+        :items="note.items"
+        @delete="requestDelete(note)"
+      />
     </div>
+
+    <ModalDefaultModal name="delete-note" @cancel="$modal.close()">
+      <template #title>
+        Удалить заметку?
+      </template>
+      <template #description>
+        {{ deleteDescription }}
+      </template>
+      <template #actions>
+        <UIButton type="secondary" @click="$modal.close()">
+          Отмена
+        </UIButton>
+        <UIButton type="danger-solid" @click="confirmDelete">
+          Удалить
+        </UIButton>
+      </template>
+    </ModalDefaultModal>
   </div>
 </template>
 
