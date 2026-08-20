@@ -1,75 +1,34 @@
-# Nuxt Minimal Starter
+# Заметки
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+SPA для заметок со списками задач: undo/redo, черновики и сохранение в localStorage.
 
-## Setup
+Nuxt 4 · TypeScript · Pinia · SCSS.
 
-Make sure to install dependencies:
+## Запуск в Docker
 
 ```bash
-# npm
+docker compose up
+```
+
+Приложение будет на http://localhost:3000
+
+## Разработка
+
+```bash
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## Тесты
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm test
 ```
 
-Locally preview production build:
+## Как устроено
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- **Редактирование идёт в копии заметки** (`draft` в сторе). Оригинал меняется только при сохранении, отмена просто выбрасывает копию.
+- **История хранит не снимки, а изменения** - что именно произошло, с полями `before`/`after`. Лимит 50 шагов, живёт в рамках одной сессии редактирования.
+- **Непрерывный ввод - одна запись в истории**: правки в одно поле дополняют последнюю запись, пока её не закроет blur или другое действие.
+- **В хранилище два ключа**: сохранённые заметки и незасохранённый черновик. Данные лежат с версией схемы, при несовпадении не читаются.
+- **Между вкладками** список синхронизируется через событие `storage`; если редактируемую заметку удалили в другой вкладке, приложение сообщает об этом.
