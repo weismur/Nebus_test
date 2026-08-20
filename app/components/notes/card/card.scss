@@ -27,6 +27,10 @@
     color: $color-ink;
 
     @include font-card-title;
+
+    &--blank {
+      color: $color-ink-soft;
+    }
   }
 
   &__actions {

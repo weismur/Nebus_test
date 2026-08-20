@@ -18,9 +18,35 @@ const isOpen = computed(() => $modal.active() === name)
 const wrapperRef = ref<HTMLElement>()
 let lastFocused: HTMLElement | null = null
 
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
 function closeModal() {
   if (withClose)
     $modal.close()
+}
+
+function trapFocus(event: KeyboardEvent) {
+  if (event.key !== 'Tab' || !wrapperRef.value)
+    return
+
+  const focusable = Array.from(wrapperRef.value.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
+  const first = focusable[0]
+  const last = focusable.at(-1)
+  const active = document.activeElement
+
+  if (!first || !last)
+    return
+
+  if (event.shiftKey) {
+    if (active === first || active === wrapperRef.value) {
+      event.preventDefault()
+      last.focus()
+    }
+  }
+  else if (active === last) {
+    event.preventDefault()
+    first.focus()
+  }
 }
 
 watch(isOpen, (value) => {
@@ -28,11 +54,17 @@ watch(isOpen, (value) => {
     emit('show')
     lastFocused = document.activeElement as HTMLElement
     nextTick(() => wrapperRef.value?.focus())
+    document.addEventListener('keydown', trapFocus, true)
   }
   else {
     emit('close')
     lastFocused?.focus()
+    document.removeEventListener('keydown', trapFocus, true)
   }
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', trapFocus, true)
 })
 </script>
 

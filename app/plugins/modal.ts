@@ -11,16 +11,16 @@ export default defineNuxtPlugin(() => {
     params: {} as ModalParams,
   })
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape')
-      closeModal()
-  }
-
-  const closeModal = () => {
+  function closeModal() {
     unlock()
     document.removeEventListener('keydown', handleKeyDown)
     current.name = ''
     current.params = {}
+  }
+
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape')
+      closeModal()
   }
 
   const modal = {

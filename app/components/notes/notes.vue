@@ -1,70 +1,46 @@
 <script setup lang="ts">
 import type { Note } from '~/types/note.ts'
 
-const notes: Note[] = [
-  {
-    id: 1,
-    title: 'Ремонт на кухне',
-    items: [
-      { text: 'Замерить столешницу', done: false },
-      { text: 'Выбрать плитку', done: true },
-      { text: 'Позвонить мастеру в среду', done: false },
-      { text: 'Заказать доставку', done: false },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Собеседование, подготовка',
-    items: [
-      { text: 'Обновить резюме', done: true },
-      { text: 'Повторить вопросы по алгоритмам', done: false },
-      { text: 'Подготовить вопросы работодателю', done: false },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Список покупок',
-    items: [
-      { text: 'Молоко', done: false },
-      { text: 'Хлеб', done: true },
-      { text: 'Яйца', done: false },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Поездка на выходные',
-    items: [
-      { text: 'Забронировать отель', done: false },
-      { text: 'Проверить билеты', done: true },
-    ],
-  },
-]
+const notesStore = useNotesStore()
+
+const { notes } = storeToRefs(notesStore)
 
 const { $modal } = useNuxtApp()
 
-const deleteDescription = computed(() => {
-  // TODO()
-})
+const selectedNote = ref<Note | null>(null)
 
 function requestDelete(note: Note) {
-  // TODO()
+  selectedNote.value = note
+  $modal.show('delete-note')
 }
 
 function confirmDelete() {
-  // TODO()
+  if (!selectedNote.value)
+    return
+
+  notesStore.removeNote(selectedNote.value.id)
+  $modal.close()
+}
+
+function addNewNote() {
+  notesStore.addNote()
+}
+
+function editNote(id: string) {
+  navigateTo(`/${id}`)
 }
 </script>
 
 <template>
   <div class="notes">
-    <NotesHeader />
+    <NotesHeader @add-note="addNewNote" />
     <div class="notes__list">
       <NotesCard
         v-for="note in notes"
         :key="note.id"
-        :title="note.title"
-        :items="note.items"
+        :item="note"
         @delete="requestDelete(note)"
+        @edit="editNote(note.id)"
       />
     </div>
 
@@ -73,7 +49,7 @@ function confirmDelete() {
         Удалить заметку?
       </template>
       <template #description>
-        {{ deleteDescription }}
+        Заметка и все подпункты будут удалены. Действие нельзя отменить.
       </template>
       <template #actions>
         <UIButton type="secondary" @click="$modal.close()">

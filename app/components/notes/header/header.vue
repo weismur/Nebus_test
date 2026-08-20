@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineEmits<{
+  addNote: []
+}>()
 </script>
 
 <template>
@@ -9,7 +12,7 @@
       </h1>
       <span class="notes-header__count">4</span>
     </div>
-    <UIButton type="primary">
+    <UIButton type="primary" @click="$emit('addNote')">
       Новая заметка
     </UIButton>
   </header>
