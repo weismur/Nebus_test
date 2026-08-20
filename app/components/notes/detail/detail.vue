@@ -50,6 +50,21 @@ function dismissDraft() {
   $modal.close()
 }
 
+function leaveDeleted() {
+  if (!notesStore.isDraftOrphaned)
+    return
+
+  notesStore.discardDraft()
+  $modal.close()
+
+  navigateTo('/')
+}
+
+watch(() => notesStore.isDraftOrphaned, (orphaned) => {
+  if (orphaned)
+    $modal.show('note-deleted')
+})
+
 onMounted(() => {
   if (notesStore.pendingDraft)
     $modal.show('restore-draft')
@@ -140,7 +155,20 @@ onBeforeUnmount(() => {
       </template>
     </ModalDefaultModal>
 
-    <!-- Закрытие без выбора (Escape, оверлей, крестик) равносильно «Начать заново». -->
+    <ModalDefaultModal name="note-deleted" @close="leaveDeleted">
+      <template #title>
+        Заметка удалена
+      </template>
+      <template #description>
+        Её удалили в другой вкладке. Несохранённые изменения восстановить не получится.
+      </template>
+      <template #actions>
+        <UIButton type="primary" @click="leaveDeleted">
+          К списку заметок
+        </UIButton>
+      </template>
+    </ModalDefaultModal>
+
     <ModalDefaultModal name="restore-draft" @close="dismissDraft">
       <template #title>
         Восстановить черновик?

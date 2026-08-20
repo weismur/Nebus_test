@@ -66,6 +66,13 @@ export function useLocalStorage() {
     writeStored(DRAFT_KEY, note)
   }
 
+  function watchNotesChange(handler: () => void) {
+    window.addEventListener('storage', (event) => {
+      if (event.key === NOTES_KEY)
+        handler()
+    })
+  }
+
   function clearDraft() {
     try {
       localStorage.removeItem(DRAFT_KEY)
@@ -81,5 +88,6 @@ export function useLocalStorage() {
     loadDraft,
     saveDraft,
     clearDraft,
+    watchNotesChange,
   }
 }

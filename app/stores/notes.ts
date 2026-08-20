@@ -5,7 +5,7 @@ import { useLocalStorage } from '~/composables/useLocalStorage.ts'
 
 const HISTORY_LIMIT = 50
 
-const { saveNotes, loadDraft, clearDraft, saveDraft: persistDraft } = useLocalStorage()
+const { loadNotes, saveNotes, loadDraft, clearDraft, saveDraft: persistDraft } = useLocalStorage()
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
@@ -13,6 +13,8 @@ export const useNotesStore = defineStore('notes', () => {
   const draft = ref<Note | null>(null)
 
   const pendingDraft = ref<Note | null>(null)
+
+  const isDraftOrphaned = ref(false)
 
   const history = ref<NoteHistoryItem[]>([])
   const historyIndex = ref(0)
@@ -107,6 +109,7 @@ export const useNotesStore = defineStore('notes', () => {
   function discardDraft() {
     draft.value = null
     pendingDraft.value = null
+    isDraftOrphaned.value = false
     clearHistory()
     clearDraft()
   }
@@ -114,6 +117,13 @@ export const useNotesStore = defineStore('notes', () => {
   function flushDraft() {
     if (draft.value)
       persistDraft(draft.value)
+  }
+
+  function syncFromStorage() {
+    notes.value = loadNotes()
+
+    if (draft.value && !getNoteById(draft.value.id))
+      isDraftOrphaned.value = true
   }
 
   function addNote() {
@@ -326,6 +336,7 @@ export const useNotesStore = defineStore('notes', () => {
     notes,
     draft,
     pendingDraft,
+    isDraftOrphaned,
     history,
     historyIndex,
     canUndo,
@@ -337,6 +348,7 @@ export const useNotesStore = defineStore('notes', () => {
     saveDraft,
     discardDraft,
     flushDraft,
+    syncFromStorage,
     restoreDraft,
     dismissDraft,
     updateNoteTitle,
