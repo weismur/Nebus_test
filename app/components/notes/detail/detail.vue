@@ -65,12 +65,40 @@ watch(() => notesStore.isDraftOrphaned, (orphaned) => {
     $modal.show('note-deleted')
 })
 
+function isTextField(target: EventTarget | null) {
+  return target instanceof HTMLElement
+    && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+}
+
+function handleHistoryShortcut(event: KeyboardEvent) {
+  const isZ = event.code === 'KeyZ' || event.key.toLowerCase() === 'z'
+
+  if (!isZ || !(event.ctrlKey || event.metaKey) || event.altKey)
+    return
+
+  if (isTextField(event.target))
+    return
+
+  if ($modal.active())
+    return
+
+  event.preventDefault()
+
+  if (event.shiftKey)
+    notesStore.redo()
+  else
+    notesStore.undo()
+}
+
 onMounted(() => {
+  document.addEventListener('keydown', handleHistoryShortcut)
+
   if (notesStore.pendingDraft)
     $modal.show('restore-draft')
 })
 
 onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleHistoryShortcut)
   notesStore.discardDraft()
 })
 </script>

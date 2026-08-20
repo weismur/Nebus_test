@@ -8,6 +8,12 @@
 
   padding: 20px 0;
 
+  @include respond-to(mobile) {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 0 16px;
+  }
+
   &__title-wrapper {
     display: flex;
     align-items: center;

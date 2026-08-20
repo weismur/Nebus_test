@@ -10,10 +10,19 @@
   background: $color-history-bg;
   border-bottom: 1px solid $color-note-border;
 
+  @include respond-to(mobile) {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
   &__wrapper {
     display: flex;
     align-items: center;
     gap: 8px;
+
+    @include respond-to(mobile) {
+      flex-wrap: wrap;
+    }
   }
 
   &__history {

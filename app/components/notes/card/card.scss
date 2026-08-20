@@ -7,6 +7,10 @@
   gap: 14px;
   padding: 22px 28px;
 
+  @include respond-to(mobile) {
+    padding: 16px;
+  }
+
   border: 1px solid $color-border;
   border-radius: $radius-xl;
 
@@ -21,6 +25,10 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
+
+    @include respond-to(mobile) {
+      flex-wrap: wrap;
+    }
   }
 
   &__title {
