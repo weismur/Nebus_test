@@ -33,7 +33,7 @@ function editNote(id: string) {
 
 <template>
   <div class="notes">
-    <NotesHeader @add-note="addNewNote" />
+    <NotesHeader :count="notes.length" @add-note="addNewNote" />
     <div class="notes__list">
       <NotesCard
         v-for="note in notes"
@@ -44,7 +44,7 @@ function editNote(id: string) {
       />
     </div>
 
-    <ModalDefaultModal name="delete-note" @cancel="$modal.close()">
+    <ModalDefaultModal name="delete-note">
       <template #title>
         Удалить заметку?
       </template>

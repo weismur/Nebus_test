@@ -2,10 +2,20 @@
 const { name } = defineProps<{
   name: string
 }>()
+
+defineEmits<{
+  show: []
+  close: []
+}>()
 </script>
 
 <template>
-  <Modal :name="name" with-close>
+  <Modal
+    :name="name"
+    with-close
+    @show="$emit('show')"
+    @close="$emit('close')"
+  >
     <div class="default-modal">
       <h2 v-if="$slots.title" class="default-modal__title">
         <slot name="title" />

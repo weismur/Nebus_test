@@ -1,13 +1,18 @@
 import type { NoteHistoryItem } from '~/types/note-history-item.ts'
 import type { NoteTodoItem } from '~/types/note-todo-item.ts'
 import type { Note } from '~/types/note.ts'
+import { useLocalStorage } from '~/composables/useLocalStorage.ts'
 
 const HISTORY_LIMIT = 50
+
+const { saveNotes, loadDraft, clearDraft, saveDraft: persistDraft } = useLocalStorage()
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
 
   const draft = ref<Note | null>(null)
+
+  const pendingDraft = ref<Note | null>(null)
 
   const history = ref<NoteHistoryItem[]>([])
   const historyIndex = ref(0)
@@ -50,7 +55,38 @@ export const useNotesStore = defineStore('notes', () => {
     const note = getNoteById(noteId)
 
     draft.value = note ? structuredClone(toRaw(note)) : null
+    pendingDraft.value = null
     clearHistory()
+
+    if (!note)
+      return
+
+    const stored = loadDraft()
+
+    if (!stored || stored.id !== note.id)
+      return
+
+    if (JSON.stringify(stored) === JSON.stringify(note))
+      clearDraft()
+    else
+      pendingDraft.value = stored
+  }
+
+  function restoreDraft() {
+    if (!pendingDraft.value)
+      return
+
+    draft.value = pendingDraft.value
+    pendingDraft.value = null
+    clearHistory()
+  }
+
+  function dismissDraft() {
+    if (!pendingDraft.value)
+      return
+
+    pendingDraft.value = null
+    clearDraft()
   }
 
   function saveDraft() {
@@ -64,12 +100,20 @@ export const useNotesStore = defineStore('notes', () => {
         .map(item => ({ ...toRaw(item) }))
     }
 
+    saveNotes(notes.value)
     discardDraft()
   }
 
   function discardDraft() {
     draft.value = null
+    pendingDraft.value = null
     clearHistory()
+    clearDraft()
+  }
+
+  function flushDraft() {
+    if (draft.value)
+      persistDraft(draft.value)
   }
 
   function addNote() {
@@ -80,6 +124,8 @@ export const useNotesStore = defineStore('notes', () => {
       title: '',
       items: [],
     })
+
+    saveNotes(notes.value)
   }
 
   function removeNote(id: string) {
@@ -88,6 +134,8 @@ export const useNotesStore = defineStore('notes', () => {
     if (foundNoteIndex !== -1) {
       notes.value.splice(foundNoteIndex, 1)
     }
+
+    saveNotes(notes.value)
   }
 
   function updateNoteTitle(title: string) {
@@ -277,6 +325,7 @@ export const useNotesStore = defineStore('notes', () => {
   return {
     notes,
     draft,
+    pendingDraft,
     history,
     historyIndex,
     canUndo,
@@ -287,6 +336,9 @@ export const useNotesStore = defineStore('notes', () => {
     startEditing,
     saveDraft,
     discardDraft,
+    flushDraft,
+    restoreDraft,
+    dismissDraft,
     updateNoteTitle,
     addItem,
     removeItem,

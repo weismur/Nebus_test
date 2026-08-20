@@ -40,6 +40,21 @@ function confirmCancel() {
   navigateTo('/')
 }
 
+function restoreDraft() {
+  notesStore.restoreDraft()
+  $modal.close()
+}
+
+function dismissDraft() {
+  notesStore.dismissDraft()
+  $modal.close()
+}
+
+onMounted(() => {
+  if (notesStore.pendingDraft)
+    $modal.show('restore-draft')
+})
+
 onBeforeUnmount(() => {
   notesStore.discardDraft()
 })
@@ -108,7 +123,7 @@ onBeforeUnmount(() => {
       Заметка не найдена
     </p>
 
-    <ModalDefaultModal name="delete-note" @cancel="$modal.close()">
+    <ModalDefaultModal name="delete-note">
       <template #title>
         Удалить заметку?
       </template>
@@ -125,7 +140,25 @@ onBeforeUnmount(() => {
       </template>
     </ModalDefaultModal>
 
-    <ModalDefaultModal name="cancel-edit" @cancel="$modal.close()">
+    <!-- Закрытие без выбора (Escape, оверлей, крестик) равносильно «Начать заново». -->
+    <ModalDefaultModal name="restore-draft" @close="dismissDraft">
+      <template #title>
+        Восстановить черновик?
+      </template>
+      <template #description>
+        Прошлое редактирование этой заметки осталось несохранённым.
+      </template>
+      <template #actions>
+        <UIButton type="secondary" @click="dismissDraft">
+          Начать заново
+        </UIButton>
+        <UIButton type="primary" @click="restoreDraft">
+          Восстановить
+        </UIButton>
+      </template>
+    </ModalDefaultModal>
+
+    <ModalDefaultModal name="cancel-edit">
       <template #title>
         Отменить редактирование?
       </template>
